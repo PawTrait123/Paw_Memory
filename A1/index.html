@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pet Profile</title>
+  <style>
+    :root {
+      --bg: #fff8f1;
+      --card: #ffffff;
+      --text: #3d2f2f;
+      --muted: #7a6870;
+      --line: #ffe2cf;
+      --accent: #ff7b54;
+      --accent-press: #f2643f;
+      --ok-bg: #e8fff3;
+      --ok-text: #0c8c56;
+      --soft-blue: #e8f1ff;
+      --soft-pink: #ffe9f3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff8f1 0%, #fff2fb 100%);
+      background-image: url("https://media.tenor.com/a8PU8jt5l3IAAAAj/paws-paw.gif");
+    }
+    #logoBanner {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+      width: 100%;
+      max-width: 380px;
+    }
+    #logoBanner img { width: 180px; object-fit: contain; }
+    .card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(255, 123, 84, 0.12);
+    }
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .pet-photo {
+      width: 72px; height: 72px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--soft-blue);
+    }
+    h1 { margin: 0; font-size: 1.3rem; line-height: 1.2; }
+    .meta { margin: 3px 0 0; color: var(--muted); font-size: 0.92rem; }
+    .status {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: var(--ok-bg);
+      color: var(--ok-text);
+      border: 1px solid #c8f3de;
+    }
+    .info {
+      margin: 0; padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--soft-blue), var(--soft-pink));
+    }
+    .info p { margin: 0 0 8px; font-size: 0.93rem; color: var(--muted); }
+    .info p:last-child { margin-bottom: 0; }
+    .info-row { display: flex; gap: 10px; align-items: stretch; margin: 0 0 10px; }
+    .info-row .info { flex: 1; }
+    .sound-btn {
+      width: 52px; min-width: 52px;
+      border: 1px solid #ffd6c6;
+      border-radius: 12px;
+      background: linear-gradient(160deg, #fff3b0, #ffd6a5);
+      color: #9a4d00;
+      font-size: 1.2rem; font-weight: 700;
+      cursor: pointer;
+      display: grid; place-items: center;
+      box-shadow: 0 6px 14px rgba(255, 123, 84, 0.18);
+      transition: transform 0.15s ease;
+    }
+    .sound-btn:active { transform: translateY(1px); }
+    .btn {
+      display: block; width: 100%; border: 0;
+      border-radius: 12px; padding: 12px 14px;
+      background: linear-gradient(180deg, #ff8c66, var(--accent));
+      color: #fff; text-decoration: none; text-align: center;
+      font-weight: 600; font-size: 1rem;
+      box-shadow: 0 8px 18px rgba(255, 123, 84, 0.2);
+      margin-top: 8px; cursor: pointer;
+    }
+    .btn.wa { background: linear-gradient(180deg, #25d366, #1da851); }
+    .btn.video { background: linear-gradient(180deg, #7b8cff, #5a6cf0); }
+
+    /* Video modal */
+    .video-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .video-overlay.open { display: flex; }
+    .video-box {
+      width: 100%;
+      max-width: 420px;
+      background: #000;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .video-box video {
+      width: 100%;
+      display: block;
+      max-height: 80vh;
+    }
+    .video-close {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    @media (max-width: 360px) {
+      .card { padding: 14px; }
+      .pet-photo { width: 64px; height: 64px; }
+      h1 { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="logoBanner">
+  <img src="https://raw.githubusercontent.com/PawPawLand/PET_NFC/main/PAW%20PAW%20LAND_SEC%20LOGO.png" alt="Paw Paw Land">
+</div>
+
+<main class="card">
+  <section class="header">
+    <img class="pet-photo" id="petPhoto" src="" alt="">
+    <div>
+      <h1 id="petName"></h1>
+      <p class="meta" id="petMeta"></p>
+      <span class="status" id="petStatus"></span>
+    </div>
+  </section>
+  <section class="info-row">
+    <div class="info">
+      <p id="petAllergy"></p>
+      <p id="petNotes"></p>
+      <p id="petOwner"></p>
+    </div>
+    <button class="sound-btn" type="button" onclick="playSound()">♪</button>
+  </section>
+  <a class="btn wa" id="waButton" href="#">💬 WhatsApp Owner</a>
+  <a class="btn" id="callButton" href="#">📞 Call Owner</a>
+  <button class="btn video" type="button" onclick="openVideo()">🎬 Watch Video</button>
+</main>
+
+<audio id="petSound" preload="auto"></audio>
+
+<div class="video-overlay" id="videoOverlay">
+  <div class="video-box">
+    <button class="video-close" onclick="closeVideo()">✕</button>
+    <video id="petVideo" controls playsinline></video>
+  </div>
+</div>
+
+<script>
+  // ==============================
+  // 只需要改这里 ↓
+  // ==============================
+  const PET = {
+    name: "A1",
+    species: "-",
+    gender: "-",
+    born: "-",
+    nfcId: "ID-260001",
+    allergy: "-",
+    notes: "None Friendly",
+    owner: "-",
+    phone: "-",
+    photo: "A1.jpeg",
+    sound: "A1.mp3",
+    video: "https://raw.githubusercontent.com/PawTrait123/Paw_Memory/main/A1.mp4",
+    vaccinated: true,
+  };
+  // ==============================
+  // 以下不需要改 ↑
+  // ==============================
+
+  PET.waMessage = `Hi, I found your lost Pet ${PET.name}! How can I help you?`;
+
+  document.getElementById("petName").textContent = PET.name;
+  document.getElementById("petMeta").textContent = `${PET.gender} ${PET.species} • ${PET.born} • NFC ID: ${PET.nfcId}`;
+  document.getElementById("petStatus").textContent = PET.vaccinated ? "Vaccinated ✓" : "Not Vaccinated";
+  document.getElementById("petAllergy").innerHTML = `<strong>Allergy:</strong> ${PET.allergy}`;
+  document.getElementById("petNotes").innerHTML = `<strong>Notes:</strong> ${PET.notes}`;
+  document.getElementById("petOwner").innerHTML = `<strong>Owner:</strong> ${PET.owner}`;
+  document.getElementById("petPhoto").src = PET.photo;
+  document.getElementById("petPhoto").alt = PET.name;
+  document.getElementById("waButton").href = `https://wa.me/${PET.phone}?text=${encodeURIComponent(PET.waMessage)}`;
+  document.getElementById("callButton").href = `tel:+${PET.phone}`;
+  document.getElementById("petSound").innerHTML = `<source src="${PET.sound}" type="audio/mpeg">`;
+
+  window.playSound = function () {
+    const s = document.getElementById("petSound");
+    s.currentTime = 0;
+    s.play().catch(() => alert("Tap again to play sound"));
+  };
+
+  window.openVideo = function () {
+    const overlay = document.getElementById("videoOverlay");
+    const video = document.getElementById("petVideo");
+    video.src = PET.video;
+    overlay.classList.add("open");
+    video.play().catch(() => {});
+  };
+
+  window.closeVideo = function () {
+    const overlay = document.getElementById("videoOverlay");
+    const video = document.getElementById("petVideo");
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+    overlay.classList.remove("open");
+  };
+</script>
+</body>
+</html>
