@@ -1,297 +1,665 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pet Profile</title>
-  <style>
-    :root {
-      --bg: #f5f0eb;
-      --card: #fefdfb;
-      --text: #5a4a42;
-      --muted: #8b7b73;
-      --line: #e8dcd0;
-      --accent: #d4a574;
-      --accent-press: #c09356;
-      --ok-bg: #f0ebe5;
-      --ok-text: #8b7b73;
-      --soft-blue: #f5f0eb;
-      --soft-pink: #faf6f1;
-      --gold: #d4a574;
-      --dark-brown: #5a4a42;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 14px;
-      font-family: 'Georgia', 'Garamond', system-ui, -apple-system, "Segoe UI", sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #f5f0eb 0%, #faf6f1 100%);
-      background-attachment: fixed;
-    }
-    
-    #logoBanner {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 380px;
-    }
-    #logoBanner img { 
-      width: 160px; 
-      object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(90, 74, 66, 0.1));
-    }
-    
-    .card {
-      width: 100%;
-      max-width: 380px;
-      background: var(--card);
-      border: 2px solid var(--line);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 8px 32px rgba(90, 74, 66, 0.08);
-    }
-    
-    .header { 
-      display: flex; 
-      align-items: center; 
-      gap: 14px; 
-      margin-bottom: 18px;
-    }
-    
-    .pet-photo {
-      width: 80px; 
-      height: 80px;
-      border-radius: 16px;
-      border: 2px solid var(--gold);
-      object-fit: cover;
-      flex-shrink: 0;
-      background: var(--soft-blue);
-      box-shadow: 0 4px 12px rgba(212, 165, 116, 0.15);
-    }
-    
-    h1 { 
-      margin: 0; 
-      font-size: 1.4rem; 
-      line-height: 1.2;
-      color: var(--dark-brown);
-      font-weight: 600;
-    }
-    
-    .meta { 
-      margin: 6px 0 0; 
-      color: var(--muted); 
-      font-size: 0.9rem;
-      font-style: italic;
-    }
-    
-    .status {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: var(--ok-bg);
-      color: var(--ok-text);
-      border: 1px solid var(--line);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .info {
-      margin: 0; 
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--soft-blue), var(--soft-pink));
-      backdrop-filter: blur(10px);
-    }
-    
-    .info p { 
-      margin: 0 0 10px; 
-      font-size: 0.92rem; 
-      color: var(--text);
-      line-height: 1.5;
-    }
-    
-    .info p:last-child { margin-bottom: 0; }
-    
-    .info strong {
-      color: var(--gold);
-      font-weight: 600;
-    }
-    
-    .info-row { 
-      display: flex; 
-      gap: 12px; 
-      align-items: stretch; 
-      margin: 0 0 14px; 
-    }
-    
-    .info-row .info { flex: 1; }
-    
-    .sound-btn {
-      width: 56px; 
-      min-width: 56px;
-      border: 2px solid var(--gold);
-      border-radius: 14px;
-      background: linear-gradient(160deg, #faf6f1, #f5f0eb);
-      color: var(--gold);
-      font-size: 1.4rem; 
-      font-weight: 700;
-      cursor: pointer;
-      display: grid; 
-      place-items: center;
-      box-shadow: 0 4px 12px rgba(212, 165, 116, 0.15);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    
-    .sound-btn:active { 
-      transform: translateY(2px);
-      box-shadow: 0 2px 6px rgba(212, 165, 116, 0.1);
-    }
-    
-    .btn {
-      display: block; 
-      width: 100%; 
-      border: 0;
-      border-radius: 12px; 
-      padding: 14px 16px;
-      background: linear-gradient(180deg, #d4a574, #c09356);
-      color: #fff; 
-      text-decoration: none; 
-      text-align: center;
-      font-weight: 600; 
-      font-size: 0.98rem;
-      box-shadow: 0 6px 16px rgba(212, 165, 116, 0.25);
-      margin-top: 10px; 
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .btn:active {
-      transform: translateY(1px);
-      box-shadow: 0 3px 8px rgba(212, 165, 116, 0.15);
-    }
-    
-    .btn.wa { 
-      background: linear-gradient(180deg, #25d366, #1da851); 
-      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25);
-    }
-    
-    .btn.wa:active {
-      box-shadow: 0 3px 8px rgba(37, 211, 102, 0.15);
-    }
-    
-    .btn.video { 
-      background: linear-gradient(180deg, #d4a574, #c09356);
-    }
- 
-    /* Video modal */
-    .video-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(90, 74, 66, 0.85);
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      backdrop-filter: blur(4px);
-    }
-    
-    .video-overlay.open { display: flex; }
-    
-    .video-box {
-      width: 100%;
-      max-width: 420px;
-      background: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    
-    .video-box video {
-      width: 100%;
-      display: block;
-      max-height: 80vh;
-    }
-    
-    .video-close {
-      position: absolute;
-      top: 12px; 
-      right: 12px;
-      width: 38px; 
-      height: 38px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255, 255, 255, 0.95);
-      color: #5a4a42;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-    
-    .video-close:active {
-      transform: scale(0.95);
-    }
- 
-    @media (max-width: 360px) {
-      .card { padding: 18px; }
-      .pet-photo { width: 72px; height: 72px; }
-      h1 { font-size: 1.2rem; }
-      .btn { font-size: 0.92rem; padding: 12px 14px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>PawTrait Pet Profile</title>
+
+<style>
+
+:root {
+  --bg:#f5f0eb;
+  --card:#fefdfb;
+  --text:#5a4a42;
+  --muted:#8b7b73;
+  --line:#e8dcd0;
+  --gold:#d4a574;
+}
+
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+
+margin:0;
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+padding:14px;
+
+font-family:
+Georgia,
+Garamond,
+system-ui;
+
+color:var(--text);
+
+background:
+linear-gradient(
+180deg,
+#f5f0eb,
+#faf6f1
+);
+
+}
+
+
+
+#logoBanner{
+
+display:flex;
+justify-content:center;
+
+margin-bottom:20px;
+
+width:100%;
+max-width:380px;
+
+}
+
+
+#logoBanner img{
+
+width:160px;
+
+filter:
+drop-shadow(
+0 4px 8px
+rgba(90,74,66,.1)
+);
+
+}
+
+
+
+.card{
+
+width:100%;
+max-width:380px;
+
+background:var(--card);
+
+border:
+
+2px solid var(--line);
+
+border-radius:20px;
+
+padding:24px;
+
+box-shadow:
+
+0 8px 32px
+rgba(90,74,66,.08);
+
+}
+
+
+
+.header{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+margin-bottom:18px;
+
+}
+
+
+
+.pet-photo{
+
+width:80px;
+height:80px;
+
+border-radius:16px;
+
+border:2px solid var(--gold);
+
+object-fit:cover;
+
+}
+
+
+
+h1{
+
+margin:0;
+
+font-size:1.4rem;
+
+color:#5a4a42;
+
+}
+
+
+
+.meta{
+
+margin-top:6px;
+
+color:var(--muted);
+
+font-size:.9rem;
+
+}
+
+
+
+.status{
+
+display:inline-block;
+
+margin-top:8px;
+
+padding:5px 12px;
+
+border-radius:20px;
+
+background:#f0ebe5;
+
+font-size:.75rem;
+
+}
+
+
+
+.info{
+
+padding:16px;
+
+border:
+
+1px solid var(--line);
+
+border-radius:14px;
+
+background:#faf6f1;
+
+}
+
+
+
+.info p{
+
+margin:
+
+0 0 10px;
+
+font-size:.92rem;
+
+}
+
+
+
+.info strong{
+
+color:var(--gold);
+
+}
+
+
+
+.info-row{
+
+display:flex;
+
+gap:12px;
+
+}
+
+
+
+.sound-btn{
+
+width:56px;
+
+border-radius:14px;
+
+border:
+
+2px solid var(--gold);
+
+background:#faf6f1;
+
+font-size:1.4rem;
+
+color:var(--gold);
+
+cursor:pointer;
+
+}
+
+
+
+.btn{
+
+display:block;
+
+width:100%;
+
+padding:14px;
+
+margin-top:10px;
+
+border-radius:12px;
+
+text-align:center;
+
+text-decoration:none;
+
+font-weight:600;
+
+color:white;
+
+background:
+
+linear-gradient(
+180deg,
+#d4a574,
+#c09356
+);
+
+}
+
+
+
+.btn.wa{
+
+background:
+
+linear-gradient(
+180deg,
+#25d366,
+#1da851
+);
+
+}
+
+
+
+.video-overlay{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(90,74,66,.85);
+
+align-items:center;
+
+justify-content:center;
+
+z-index:999;
+
+}
+
+
+
+.video-overlay.open{
+
+display:flex;
+
+}
+
+
+
+.video-box{
+
+width:90%;
+
+max-width:420px;
+
+background:black;
+
+border-radius:16px;
+
+overflow:hidden;
+
+}
+
+
+
+video{
+
+width:100%;
+
+}
+
+
+
+.video-close{
+
+position:absolute;
+
+right:20px;
+
+top:20px;
+
+}
+
+
+
+</style>
+
 </head>
+
+
 <body>
- 
+
+
 <div id="logoBanner">
-  <img src="https://raw.githubusercontent.com/PawTrait123/Paw_Memory/main/Pawstrait.png" alt="PawTrait Studio">
+
+<img src="https://raw.githubusercontent.com/PawTrait123/Paw_Memory/main/Pawstrait.png">
+
 </div>
- 
+
+
+
 <main class="card">
-  <section class="header">
-    <img class="pet-photo" id="petPhoto" src="" alt="">
-    <div>
-      <h1 id="petName"></h1>
-      <p class="meta" id="petMeta"></p>
-      <span class="status" id="petStatus"></span>
-    </div>
-  </section>
-  
-  <section class="info-row">
-    <div class="info">
-      <p id="petAllergy"></p>
-      <p id="petNotes"></p>
-      <p id="petOwner"></p>
-    </div>
-    <button class="sound-btn" type="button" onclick="playSound()" title="Play pet sound">♪</button>
-  </section>
-  
-  <a class="btn wa" id="waButton" href="#">💬 WhatsApp Owner</a>
-  <a class="btn" id="callButton" href="#">📞 Call Owner</a>
-  <button class="btn video" type="button" onclick="openVideo()">🎬 Watch Video</button>
-</main>
- 
-<audio id="petSound" preload="auto"></audio>
- 
-<div class="video-overlay" id="videoOverlay">
-  <div class="video-box">
-    <button class="video-close" onclick="closeVideo()" title="Close video">✕</button>
-    <video id="petVideo" controls playsinline></video>
-  </div>
+
+
+<section class="header">
+
+
+<img
+class="pet-photo"
+id="photo">
+
+
+<div>
+
+<h1 id="name"></h1>
+
+<p class="meta" id="meta"></p>
+
+<span class="status" id="status"></span>
+
 </div>
+
+
+</section>
+
+
+
+<section class="info-row">
+
+
+<div class="info">
+
+
+<p id="allergy"></p>
+
+<p id="notes"></p>
+
+<p id="owner"></p>
+
+<p id="vaccinated"></p>
+
+
+</div>
+
+
+
+<button
+class="sound-btn"
+onclick="playSound()">
+
+♪
+
+</button>
+
+
+</section>
+
+
+
+<a
+class="btn wa"
+id="whatsapp">
+
+💬 WhatsApp Owner
+
+</a>
+
+
+
+<a
+class="btn"
+id="call">
+
+📞 Call Owner
+
+</a>
+
+
+
+<button
+class="btn"
+onclick="openVideo()">
+
+🎬 Watch Video
+
+</button>
+
+
+
+</main>
+
+
+
+<audio id="sound"></audio>
+
+
+
+<div
+class="video-overlay"
+id="videoOverlay">
+
+
+<div class="video-box">
+
+
+<button
+class="video-close"
+onclick="closeVideo()">
+
+✕
+
+</button>
+
+
+<video
+id="video"
+controls
+playsinline>
+
+</video>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+let pet={};
+
+
+
+fetch("data.json")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+pet=data;
+
+
+
+document.getElementById("photo").src=pet.photo;
+
+
+
+document.getElementById("name").innerHTML=
+pet.name;
+
+
+
+document.getElementById("meta").innerHTML=
+`
+${pet.species} · ${pet.gender}
+<br>
+Born: ${pet.born}
+<br>
+NFC: ${pet.nfcId}
+`;
+
+
+
+document.getElementById("status").innerHTML=
+
+pet.vaccinated
+
+?
+"Vaccinated"
+
+:
+"Not Vaccinated";
+
+
+
+document.getElementById("allergy").innerHTML=
+
+`
+<strong>Allergy:</strong>
+${pet.allergy}
+`;
+
+
+
+document.getElementById("notes").innerHTML=
+
+`
+<strong>Notes:</strong>
+${pet.notes}
+`;
+
+
+
+document.getElementById("owner").innerHTML=
+
+`
+<strong>Owner:</strong>
+${pet.owner}
+`;
+
+
+
+document.getElementById("vaccinated").innerHTML=
+
+`
+<strong>Status:</strong>
+${pet.vaccinated?"Healthy":"Need Attention"}
+`;
+
+
+
+document.getElementById("sound").src=
+pet.sound;
+
+
+
+document.getElementById("video").src=
+pet.video;
+
+
+
+document.getElementById("whatsapp").href=
+
+"https://wa.me/"+pet.phone;
+
+
+
+document.getElementById("call").href=
+
+"tel:"+pet.phone;
+
+
+
+});
+
+
+
+
+
+function playSound(){
+
+document
+.getElementById("sound")
+.play();
+
+}
+
+
+
+function openVideo(){
+
+document
+.getElementById("videoOverlay")
+.classList
+.add("open");
+
+
+document
+.getElementById("video")
+.play();
+
+}
+
+
+
+function closeVideo(){
+
+document
+.getElementById("videoOverlay")
+.classList
+.remove("open");
+
+
+document
+.getElementById("video")
+.pause();
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
