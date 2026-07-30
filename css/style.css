@@ -1,36 +1,20 @@
-:root{
-    --bg:#f5f0eb;
-    --card:#fefdfb;
-    ...
-}
+window.onload = () => {
 
-*{
-    box-sizing:border-box;
-}
+    document.getElementById("petName").textContent = pet.name;
 
-body{
-    margin:0;
-    ...
-}
+    document.getElementById("petMeta").textContent =
+        `${pet.breed} • ${pet.gender} • ${pet.age}`;
 
-.card{
-    ...
-}
+    document.getElementById("petStatus").textContent =
+        pet.status;
 
-.header{
-    ...
-}
+    document.getElementById("petPhoto").src =
+        pet.photo;
 
-/* 全部CSS继续放这里 */
+    document.getElementById("petSound").src =
+        pet.sound;
 
-.video-overlay{
-    ...
-}
+    document.getElementById("petVideo").src =
+        pet.video;
 
-@media(max-width:360px){
-
-    .card{
-        padding:18px;
-    }
-
-}
+};
