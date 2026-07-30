@@ -1,5 +1,5 @@
 const id=(new URLSearchParams(location.search).get('id')||'A001').toUpperCase();
-fetch('pets/'+id+'.json').then(r=>r.json()).then(PET=>{
+fetch(id+'.json').then(r=>r.json()).then(PET=>{
 petName.textContent=PET.name;
 petMeta.textContent=`${PET.gender} ${PET.species} • ${PET.born} • NFC ID:${PET.nfcId}`;
 petAllergy.textContent='Allergy: '+PET.allergy;
