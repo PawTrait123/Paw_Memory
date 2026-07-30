@@ -1,7 +1,112 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Pet Profile</title>
-<link rel="stylesheet" href="css/style.css"></head><body>
-<h2 id="petName">Loading...</h2>
-<p id="petMeta"></p><img id="petPhoto" width="150">
-<p id="petAllergy"></p><p id="petNotes"></p><p id="petOwner"></p>
-<a id="waButton">WhatsApp</a> <a id="callButton">Call</a>
-<script src="js/script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Profile</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="logoBanner">
+    <img src="https://raw.githubusercontent.com/PawTrait123/Paw_Memory/main/Pawstrait.png"
+         alt="PawTrait Studio">
+</div>
+
+<main class="card">
+
+    <section class="header">
+
+        <img
+            class="pet-photo"
+            id="petPhoto"
+            src=""
+            alt="">
+
+        <div>
+
+            <h1 id="petName"></h1>
+
+            <p
+                class="meta"
+                id="petMeta"></p>
+
+            <span
+                class="status"
+                id="petStatus"></span>
+
+        </div>
+
+    </section>
+
+    <section class="info-row">
+
+        <div class="info">
+
+            <p id="petAllergy"></p>
+
+            <p id="petNotes"></p>
+
+            <p id="petOwner"></p>
+
+        </div>
+
+        <button
+            class="sound-btn"
+            id="soundButton">
+
+            ♪
+
+        </button>
+
+    </section>
+
+    <a class="btn wa" id="waButton">
+        💬 WhatsApp Owner
+    </a>
+
+    <a class="btn" id="callButton">
+        📞 Call Owner
+    </a>
+
+    <button
+        class="btn video"
+        id="videoButton">
+
+        🎬 Watch Video
+
+    </button>
+
+</main>
+
+<audio id="petSound"></audio>
+
+<div
+    class="video-overlay"
+    id="videoOverlay">
+
+    <div class="video-box">
+
+        <button
+            class="video-close"
+            id="closeVideo">
+
+            ✕
+
+        </button>
+
+        <video
+            id="petVideo"
+            controls
+            playsinline></video>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
