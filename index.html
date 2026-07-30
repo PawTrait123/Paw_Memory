@@ -1,112 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Profile</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pet Profile</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <div id="logoBanner">
-    <img src="https://raw.githubusercontent.com/PawTrait123/Paw_Memory/main/Pawstrait.png"
-         alt="PawTrait Studio">
+  <img src="https://raw.githubusercontent.com/PawTrait123/Paw_Memory/main/Pawstrait.png" alt="PawTrait Studio">
 </div>
 
 <main class="card">
+  <section class="header">
+    <img class="pet-photo" id="petPhoto" src="" alt="">
+    <div>
+      <h1 id="petName"></h1>
+      <p class="meta" id="petMeta"></p>
+      <span class="status" id="petStatus"></span>
+    </div>
+  </section>
 
-    <section class="header">
+  <section class="info-row">
+    <div class="info">
+      <p id="petAllergy"></p>
+      <p id="petNotes"></p>
+      <p id="petOwner"></p>
+    </div>
+    <button class="sound-btn" type="button" onclick="playSound()" title="Play pet sound">♪</button>
+  </section>
 
-        <img
-            class="pet-photo"
-            id="petPhoto"
-            src=""
-            alt="">
-
-        <div>
-
-            <h1 id="petName"></h1>
-
-            <p
-                class="meta"
-                id="petMeta"></p>
-
-            <span
-                class="status"
-                id="petStatus"></span>
-
-        </div>
-
-    </section>
-
-    <section class="info-row">
-
-        <div class="info">
-
-            <p id="petAllergy"></p>
-
-            <p id="petNotes"></p>
-
-            <p id="petOwner"></p>
-
-        </div>
-
-        <button
-            class="sound-btn"
-            id="soundButton">
-
-            ♪
-
-        </button>
-
-    </section>
-
-    <a class="btn wa" id="waButton">
-        💬 WhatsApp Owner
-    </a>
-
-    <a class="btn" id="callButton">
-        📞 Call Owner
-    </a>
-
-    <button
-        class="btn video"
-        id="videoButton">
-
-        🎬 Watch Video
-
-    </button>
-
+  <a class="btn wa" id="waButton" href="#">💬 WhatsApp Owner</a>
+  <a class="btn" id="callButton" href="#">📞 Call Owner</a>
+  <button class="btn video" type="button" onclick="openVideo()">🎬 Watch Video</button>
 </main>
 
-<audio id="petSound"></audio>
+<audio id="petSound" preload="auto"></audio>
 
-<div
-    class="video-overlay"
-    id="videoOverlay">
-
-    <div class="video-box">
-
-        <button
-            class="video-close"
-            id="closeVideo">
-
-            ✕
-
-        </button>
-
-        <video
-            id="petVideo"
-            controls
-            playsinline></video>
-
-    </div>
-
+<div class="video-overlay" id="videoOverlay">
+  <div class="video-box">
+    <button class="video-close" onclick="closeVideo()" title="Close video">✕</button>
+    <video id="petVideo" controls playsinline></video>
+  </div>
 </div>
 
-<script src="script.js"></script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
