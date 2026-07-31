@@ -1,0 +1,15 @@
+{
+  "name": "",
+  "species": "",
+  "gender": "",
+  "born": "",
+  "nfcId": "B086",
+  "allergy": "",
+  "notes": "",
+  "owner": "",
+  "phone": "",
+  "photo": "images/B086.jpeg",
+  "sound": "sounds/B086.mp3",
+  "video": "videos/B086.mp4",
+  "vaccinated": true
+}
