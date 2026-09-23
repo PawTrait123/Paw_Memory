@@ -28,8 +28,15 @@ function openVideo() {
   petVideo.play();
 }
 
+
 function closeVideo() {
   petVideo.pause();
   petVideo.currentTime = 0;
   videoOverlay.classList.remove('open');
+}
+const logoImg = document.querySelector('#logoBanner img');
+if (logoImg) {
+  logoImg.addEventListener('click', () => {
+    window.location.href = 'https://www.instagram.com/pawtrait_studio26?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==';
+  });
 }
