@@ -1,15 +1,15 @@
 {
-  "name": "",
+  "name": "Jerry",
   "species": "",
   "gender": "",
   "born": "",
   "nfcId": "B004",
   "allergy": "",
   "notes": "",
-  "owner": "",
-  "phone": "",
-  "photo": "images/B004.jpeg",
-  "sound": "sounds/B004.mp3",
-  "video": "videos/B004.mp4",
+  "owner": "Chee Jie",
+  "phone": "60197793365",
+  "photo": "images/B003.jpeg",
+  "sound": "sounds/B003.mp3",
+  "video": "videos/B003.mp4",
   "vaccinated": true
 }
